@@ -2,7 +2,7 @@
 
 Running out of papers while working on my formula's, and my back hurts.
 Just created this tool to save earth.
-Download scratch_pad_style.html and enjoy!
+Go to https://amirtallap.github.io/cortexjs.io/
 
 
 [![](https://dcbadge.vercel.app/api/server/yhmvVeJ4Hd?style=flat)](https://discord.gg/yhmvVeJ4Hd)
