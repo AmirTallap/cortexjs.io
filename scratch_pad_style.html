@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .custom-math-field{
+            width: 100%;
+        }
+        .clearButton{
+            width: 100%;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid text-center mathInputs">
+        <div class="row">
+            <div class="col-11">
+                <math-field  class="custom-math-field"></math-field>
+            </div>
+            <div class="col-1">
+                <button type="button" class="btn btn-outline-danger btn-rounded clearButton">Remove</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-5">
+                <button type="button" class="btn btn-outline-primary btn-block clearAll">Clear</button>
+            </div>
+        </div>
+    </div>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathlive"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" ></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mathElement = `<div class="row">
+                <div class="col-11">
+                    <math-field class="custom-math-field"></math-field>
+                </div>
+                <div class="col-1">
+                    <button type="button" class="btn btn-outline-danger btn-rounded clearButton">Remove</button>
+                </div>
+            </div>`;
+            const mathInputsContainer = document.querySelector('.mathInputs');
+    
+            document.addEventListener('keydown', function(event) {
+                const activeElement = document.activeElement;
+                const isInsideSpecificInput = activeElement.classList.contains('custom-math-field');
+                if (event.key === 'Enter' && isInsideSpecificInput) {
+                    event.preventDefault();
+                    const fields = Array.from(document.querySelectorAll('.custom-math-field'));
+                    const index = fields.indexOf(activeElement);
+                    if (index === fields.length - 1) {
+                        mathInputsContainer.insertAdjacentHTML('beforeend', mathElement);
+                        const newFields = document.querySelectorAll('.custom-math-field');
+                        newFields[newFields.length - 1].focus();
+                    } else {
+                        fields[index + 1].focus();
+                    }
+                }
+            });
+    
+            mathInputsContainer.addEventListener('click', function (event) {
+                if (event.target.classList.contains('clearButton')) {
+                    const row = event.target.closest('.row');
+                    if (row) {
+                        row.remove();
+                        const remainingFields = mathInputsContainer.querySelectorAll('.custom-math-field');
+                        if (remainingFields.length === 0) {
+                            document.querySelector('.clearAll').click();
+                        }
+                    }
+                }
+            });
+    
+            document.querySelector('.clearAll').addEventListener('click', function () {
+                
+            const mathInputsContainer = document.querySelector('.mathInputs');
+
+            mathInputsContainer.innerHTML = '';
+
+            mathInputsContainer.insertAdjacentHTML('beforeend', mathElement);
+        });
+            
+        });
+    </script>
+</body>
+</html>
