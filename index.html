@@ -14,8 +14,18 @@
         body{
             background-color: #3f3f3f;
         }
+        /* Custom style for the new button */
+        .copy-all-btn {
+            background-color: #007bff; /* Primary blue */
+            color: white;
+            border: 1px solid #007bff;
+        }
+        .copy-all-btn:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
     </style>
-    <title>Document</title>
+    <title>Math Input Interface</title>
 </head>
 <body>
     <div class="container-fluid text-center mathInputs">
@@ -30,7 +40,10 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-12 mt-5">
+            <div class="col-6 mt-5">
+                <button type="button" class="btn btn-outline-primary btn-block copyAll copy-all-btn">Copy All</button>
+            </div>
+            <div class="col-6 mt-5">
                 <button type="button" class="btn btn-outline-primary btn-block clearAll">Clear</button>
             </div>
         </div>
@@ -39,6 +52,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" ></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Re-define the HTML for a new math field row
             const mathElement = `<div class="row">
                 <div class="col-11">
                     <math-field class="custom-math-field"></math-field>
@@ -48,7 +62,10 @@
                 </div>
             </div>`;
             const mathInputsContainer = document.querySelector('.mathInputs');
+            const clearAllButton = document.querySelector('.clearAll');
+            const copyAllButton = document.querySelector('.copyAll');
     
+            // --- Input Field and Enter Key Logic ---
             document.addEventListener('keydown', function(event) {
                 const activeElement = document.activeElement;
                 const isInsideSpecificInput = activeElement.classList.contains('custom-math-field');
@@ -57,36 +74,87 @@
                     const fields = Array.from(document.querySelectorAll('.custom-math-field'));
                     const index = fields.indexOf(activeElement);
                     if (index === fields.length - 1) {
+                        // Add new field and focus on it
                         mathInputsContainer.insertAdjacentHTML('beforeend', mathElement);
                         const newFields = document.querySelectorAll('.custom-math-field');
                         newFields[newFields.length - 1].focus();
                     } else {
+                        // Focus on next field
                         fields[index + 1].focus();
                     }
                 }
             });
     
+            // --- Remove Button Logic ---
             mathInputsContainer.addEventListener('click', function (event) {
                 if (event.target.classList.contains('clearButton')) {
                     const row = event.target.closest('.row');
                     if (row) {
                         row.remove();
                         const remainingFields = mathInputsContainer.querySelectorAll('.custom-math-field');
+                        // If all fields are removed, call the Clear All logic to restore the first one
                         if (remainingFields.length === 0) {
-                            document.querySelector('.clearAll').click();
+                            clearAllButton.click();
                         }
                     }
                 }
             });
     
-            document.querySelector('.clearAll').addEventListener('click', function () {
-                
-            const mathInputsContainer = document.querySelector('.mathInputs');
+            // --- Clear All Button Logic ---
+            clearAllButton.addEventListener('click', function () {
+                mathInputsContainer.innerHTML = '';
+                // Add the initial math field back
+                mathInputsContainer.insertAdjacentHTML('beforeend', mathElement);
+                // The new field should be focused immediately for better UX
+                const newField = mathInputsContainer.querySelector('.custom-math-field');
+                if (newField) {
+                    newField.focus();
+                }
+            });
 
-            mathInputsContainer.innerHTML = '';
+            // --- Copy All Button Logic ---
+            copyAllButton.addEventListener('click', async function () {
+                const fields = document.querySelectorAll('.custom-math-field');
+                let allContent = [];
 
-            mathInputsContainer.insertAdjacentHTML('beforeend', mathElement);
-        });
+                // Iterate through all math fields and get their LaTeX content
+                fields.forEach(field => {
+                    // Use getLaTeX() to get the content in LaTeX format
+                    const content = field.getValue().trim();
+                    if (content) {
+                        allContent.push(`$$ ${content} $$`);
+                    }
+                });
+
+                const contentToCopy = allContent.join(`
+                `);
+                if (contentToCopy) {
+                    try {
+                        // Use the modern Clipboard API
+                        await navigator.clipboard.writeText(contentToCopy);
+                        console.log('Content copied to clipboard:', contentToCopy);
+                        // Optional: Provide a visual cue that copy was successful
+                        copyAllButton.textContent = 'Copied! 🎉';
+                        setTimeout(() => {
+                            copyAllButton.textContent = 'Copy All';
+                        }, 1500); // Revert text after 1.5 seconds
+                    } catch (err) {
+                        console.error('Could not copy text: ', err);
+                        // Fallback for older browsers or permission issues
+                        copyAllButton.textContent = 'Failed! 😢';
+                        setTimeout(() => {
+                            copyAllButton.textContent = 'Copy All';
+                        }, 1500);
+                        // A more robust fallback would involve creating a temporary textarea
+                    }
+                } else {
+                    console.log('Nothing to copy.');
+                    copyAllButton.textContent = 'Empty! 🧐';
+                    setTimeout(() => {
+                        copyAllButton.textContent = 'Copy All';
+                    }, 1500);
+                }
+            });
             
         });
     </script>
