@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-        .custom-math-field{
-            width: 100%;
-        }
-        .clearButton{
-            width: 100%;
-        }
-        body{
+        body {
             background-color: #3f3f3f;
+        }
+        .custom-math-field {
+            width: 100%;
+            min-height: 40px;
+        }
+        .clearButton {
+            white-space: nowrap; /* Prevents button text from wrapping */
         }
         /* Custom style for the new button */
         .copy-all-btn {
@@ -29,15 +30,14 @@
 </head>
 <body>
     <div class="container-fluid text-center mathInputs">
-        <div class="row">
-            <div class="col-11">
-                <math-field  class="custom-math-field"></math-field>
-            </div>
-            <div class="col-1">
-                <button type="button" class="btn btn-outline-danger btn-rounded clearButton">Remove</button>
+        <div class="row align-items-center mb-2">
+            <div class="d-flex w-100">
+                <math-field class="custom-math-field flex-grow-1"></math-field>
+                <button type="button" class="btn btn-outline-danger btn-sm ml-2 clearButton flex-shrink-0">Remove</button>
             </div>
         </div>
     </div>
+
     <div class="container">
         <div class="row">
             <div class="col-6 mt-5">
@@ -48,19 +48,20 @@
             </div>
         </div>
     </div>
+
     <script defer src="https://cdn.jsdelivr.net/npm/mathlive"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Re-define the HTML for a new math field row
-            const mathElement = `<div class="row">
-                <div class="col-11">
-                    <math-field class="custom-math-field"></math-field>
-                </div>
-                <div class="col-1">
-                    <button type="button" class="btn btn-outline-danger btn-rounded clearButton">Remove</button>
+            const mathElement = `
+            <div class="row align-items-center mb-2">
+                <div class="d-flex w-100">
+                    <math-field class="custom-math-field flex-grow-1"></math-field>
+                    <button type="button" class="btn btn-outline-danger btn-sm ml-2 clearButton flex-shrink-0">Remove</button>
                 </div>
             </div>`;
+
             const mathInputsContainer = document.querySelector('.mathInputs');
             const clearAllButton = document.querySelector('.clearAll');
             const copyAllButton = document.querySelector('.copyAll');
@@ -117,45 +118,29 @@
                 const fields = document.querySelectorAll('.custom-math-field');
                 let allContent = [];
 
-                // Iterate through all math fields and get their LaTeX content
                 fields.forEach(field => {
-                    // Use getLaTeX() to get the content in LaTeX format
                     const content = field.getValue().trim();
                     if (content) {
                         allContent.push(`$$ ${content} $$`);
                     }
                 });
 
-                const contentToCopy = allContent.join(`
-                `);
+                const contentToCopy = allContent.join("\n");
                 if (contentToCopy) {
                     try {
-                        // Use the modern Clipboard API
                         await navigator.clipboard.writeText(contentToCopy);
-                        console.log('Content copied to clipboard:', contentToCopy);
-                        // Optional: Provide a visual cue that copy was successful
                         copyAllButton.textContent = 'Copied! 🎉';
-                        setTimeout(() => {
-                            copyAllButton.textContent = 'Copy All';
-                        }, 1500); // Revert text after 1.5 seconds
+                        setTimeout(() => { copyAllButton.textContent = 'Copy All'; }, 1500);
                     } catch (err) {
                         console.error('Could not copy text: ', err);
-                        // Fallback for older browsers or permission issues
                         copyAllButton.textContent = 'Failed! 😢';
-                        setTimeout(() => {
-                            copyAllButton.textContent = 'Copy All';
-                        }, 1500);
-                        // A more robust fallback would involve creating a temporary textarea
+                        setTimeout(() => { copyAllButton.textContent = 'Copy All'; }, 1500);
                     }
                 } else {
-                    console.log('Nothing to copy.');
                     copyAllButton.textContent = 'Empty! 🧐';
-                    setTimeout(() => {
-                        copyAllButton.textContent = 'Copy All';
-                    }, 1500);
+                    setTimeout(() => { copyAllButton.textContent = 'Copy All'; }, 1500);
                 }
             });
-            
         });
     </script>
 </body>
