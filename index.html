@@ -82,6 +82,7 @@
         .menu-links::before { content: "\f0ac"; } /* fa-globe */
         .menu-formulas::before { content: "\f128"; } /* fa-flask */
         .menu-trig::before { content: "\f691"; } /* fa-infinity */
+        .menu-tools::before { content: "\f7d9"; } /* fa-tools (new) */
 
 
         /* Dropdown Menus (Level 2 and deeper) Styling */
@@ -168,6 +169,33 @@
         .top-nav > li:has(ul)::after, 
         .top-nav li.formula-item:has(ul)::after {
             content: none;
+        }
+
+        /* Modal specific dark mode overrides for background and text */
+        .modal-content {
+            background-color: #333333;
+            color: #ccc;
+            border: 1px solid #ff9900;
+        }
+        .modal-header {
+            border-bottom-color: #4d4d4d;
+        }
+        .modal-footer {
+            border-top-color: #4d4d4d;
+        }
+        .modal-header .close {
+            color: #ccc;
+            opacity: 1;
+        }
+        .modal-header .close:hover {
+            color: #ff9900;
+        }
+        /* Style for the visual part of the tool */
+        #circleCanvas {
+            border: 1px solid #ff9900;
+            background-color: #2c2c2c;
+            display: block; /* Important for canvas centering and layout */
+            margin: 0 auto;
         }
         
     </style>
@@ -282,6 +310,13 @@
                 </li>
             </ul>
         </li>
+        <li class="menu-tools">
+            Tools
+            <ul>
+                <li data-toggle="modal" data-target="#circleSplitterModal">Circle Splitter</li>
+                <li data-toggle="modal" data-target="#triangleSolverModal">Right Triangle Solver (Coming Soon)</li>
+            </ul>
+        </li>
     </ul>
     <div class="container-fluid text-center mathInputs mt-3">
         <div class="row align-items-center mb-2">
@@ -303,8 +338,66 @@
         </div>
     </div>
 
+    <div class="modal fade" id="circleSplitterModal" tabindex="-1" role="dialog" aria-labelledby="circleSplitterModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="circleSplitterModalLabel">Circle Splitter Tool</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="splitSegments">Number of Equal Segments:</label>
+                    <input type="number" id="splitSegments" class="form-control mb-3" min="1" max="360" value="4">
+                    
+                    <button class="btn btn-block copy-all-btn" id="calculateCircleSplit">Calculate Angle</button>
+                    
+                    <h5 class="mt-4">Results</h5>
+                    <div id="circleResults" class="p-2 border rounded" style="word-break: break-all;">
+                        Angle per segment: **90°**
+                    </div>
+                    <button class="btn btn-sm copy-all-btn mt-2" id="copyAngleLatex">Copy LaTeX</button>
+                </div>
+                <div class="col-md-8 text-center">
+                    <canvas id="circleCanvas" width="300" height="300"></canvas>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal fade" id="triangleSolverModal" tabindex="-1" role="dialog" aria-labelledby="triangleSolverModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="triangleSolverModalLabel">Right Triangle Solver</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>This tool is coming next!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
     <script defer src="https://cdn.jsdelivr.net/npm/mathlive"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Re-define the HTML for a new math field row
@@ -321,23 +414,7 @@
             const copyAllButton = document.querySelector('.copyAll');
             const topNav = document.querySelector('.top-nav');
 
-            /**
-             * Function to add a new math field and optionally populate it with LaTeX.
-             * This function is updated to use a robust regex to split the multi-line
-             * data attribute into individual formula blocks.
-             * @param {string} [latexValue=''] - The LaTeX string(s) to insert (must contain $$ delimiters).
-             */
-
-
-
-
-/**
-             * Function to add a new math field and optionally populate it with LaTeX.
-             * FIX: Uses RegExp.exec() in a loop to reliably extract captured content
-             * (the LaTeX formula) when the global flag (g) is present, and wraps it 
-             * in the proven insertion pattern.
-             * @param {string} [latexValue=''] - The LaTeX string(s) to insert (must contain $$ delimiters).
-             */
+            /* --- Math Field Insertion Logic (Your working function) --- */
             function addNewMathFieldWithLatex(latexValue = '') {
                 // Regex: Find $$ (group 1: non-greedy content) $$ - using 's' flag for newlines
                 const regex = /\$\$(.*?)\$\$/gs;
@@ -350,7 +427,7 @@
                     formulaBlocks.push(match[1].trim());
                 }
 
-                // Fallback for an empty click or if the data attribute was empty/malformed
+                // Fallback for an empty click
                 if (formulaBlocks.length === 0) {
                     mathInputsContainer.insertAdjacentHTML('beforeend', mathElement);
                     const newField = document.querySelector('.mathInputs .custom-math-field:last-child');
@@ -358,7 +435,7 @@
                     return;
                 }
                 
-                // CRUCIAL: Use the proven insertion method for each extracted formula
+                // Use the proven insertion method for each extracted formula
                 formulaBlocks.forEach(cleanLatex => {
                     // 1. Add the new field HTML to the DOM
                     mathInputsContainer.insertAdjacentHTML('beforeend', mathElement);
@@ -377,9 +454,7 @@
                 });
             }
 
-
-          
-            // --- Menu Activation & Closing Logic (No changes needed here) ---
+            /* --- Menu Activation & Closing Logic --- */
 
             /** Closes all open menus at any level. */
             function closeAllMenus() {
@@ -393,15 +468,22 @@
                 const targetLi = event.target.closest('.top-nav > li');
                 const clickedFormulaItem = event.target.closest('li.formula-item');
                 const clickedParentLi = event.target.closest('.top-nav li');
+                const clickedToolItem = event.target.closest('.menu-tools li'); // NEW: Tool item check
 
                 if (clickedFormulaItem) {
                     // If a formula is clicked, process it, then close all menus
                     const latexValue = clickedFormulaItem.getAttribute('data-latex-value');
                     if (latexValue) {
-                        // Use the updated function to handle multi-line insertion
                         addNewMathFieldWithLatex(latexValue);
                     }
                     closeAllMenus();
+                    return;
+                }
+                
+                if (clickedToolItem) {
+                    // If a tool is clicked, let Bootstrap handle the modal trigger, then close the menu
+                    closeAllMenus();
+                    // We rely on data-toggle and data-target attributes in the HTML for opening the modal.
                     return;
                 }
 
@@ -419,7 +501,7 @@
                     // Toggle the 'show-menu' class on the clicked list item
                     clickedParentLi.classList.toggle('show-menu');
                 } else if (clickedParentLi) {
-                    // If a simple link/item (without formula) is clicked, close all menus
+                    // If a simple link/item is clicked, close all menus
                     closeAllMenus();
                 }
             });
@@ -448,7 +530,7 @@
                 }
             });
     
-            // --- Remove Button Logic (No change needed) ---
+            // --- Remove/Clear/Copy Logic (No change needed) ---
             mathInputsContainer.addEventListener('click', function (event) {
                 if (event.target.classList.contains('clearButton')) {
                     const row = event.target.closest('.row');
@@ -462,13 +544,11 @@
                 }
             });
     
-            // --- Clear All Button Logic (No change needed) ---
             clearAllButton.addEventListener('click', function () {
                 mathInputsContainer.innerHTML = '';
                 addNewMathFieldWithLatex();
             });
 
-            // --- Copy All Button Logic (No change needed) ---
             copyAllButton.addEventListener('click', async function () {
                 const fields = document.querySelectorAll('.custom-math-field');
                 let allContent = [];
@@ -496,6 +576,116 @@
                     setTimeout(() => { copyAllButton.textContent = 'Copy All'; }, 1500);
                 }
             });
+
+
+            /* --- NEW: Circle Splitter Tool Logic (Phase 2) --- */
+
+            const canvas = document.getElementById('circleCanvas');
+            const ctx = canvas.getContext('2d');
+            const segmentInput = document.getElementById('splitSegments');
+            const resultsDiv = document.getElementById('circleResults');
+            const calculateButton = document.getElementById('calculateCircleSplit');
+            const copyAngleLatexButton = document.getElementById('copyAngleLatex');
+
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 120;
+            const TWO_PI = 2 * Math.PI;
+
+            /** Draws the circle and its segments based on the input value. */
+            function drawCircle(segments) {
+                // Clear the canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw the main circle
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, TWO_PI);
+                ctx.strokeStyle = '#cccccc';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                if (segments > 0) {
+                    const anglePerSegment = TWO_PI / segments;
+                    
+                    // Draw segments
+                    ctx.strokeStyle = '#ff9900';
+                    ctx.lineWidth = 1;
+                    for (let i = 0; i < segments; i++) {
+                        const startAngle = i * anglePerSegment;
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(centerX, centerY);
+                        // Draw line from center to the edge of the circle
+                        ctx.lineTo(
+                            centerX + radius * Math.cos(startAngle),
+                            centerY + radius * Math.sin(startAngle)
+                        );
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            /** Calculates the angle and updates the result text. */
+            function updateCircleSplit() {
+                let segments = parseInt(segmentInput.value, 10);
+                
+                // Sanitize input
+                if (isNaN(segments) || segments < 1) {
+                    segments = 1;
+                    segmentInput.value = 1;
+                }
+                
+                const angle = 360 / segments;
+                const radians = TWO_PI / segments;
+
+                // Update visual
+                drawCircle(segments);
+
+                // Update text results
+                let resultText = `Angle per segment: **${angle}°**`;
+                let latexOutput = `$$ \\text{Angle} = \\frac{360^{\\circ}}{${segments}} = ${angle}^{\\circ} $$`;
+
+                if (segments !== 1) {
+                    resultText += `<br>Angle in radians: **${radians.toFixed(4)}** rad`;
+                    latexOutput += `\n$$ \\text{Radians} = \\frac{2\\pi}{${segments}} = ${radians.toFixed(4)} $$`;
+                }
+
+                resultsDiv.innerHTML = resultText;
+                // Store the LaTeX for copying
+                resultsDiv.dataset.latex = latexOutput;
+            }
+
+            // --- Event Listeners for the Circle Splitter ---
+            
+            // Initial draw when the modal is opened
+            $('#circleSplitterModal').on('show.bs.modal', function () {
+                // Delaying slightly ensures the canvas is fully visible and sized correctly
+                setTimeout(updateCircleSplit, 50); 
+            });
+
+            // Recalculate and redraw on input change
+            segmentInput.addEventListener('input', updateCircleSplit);
+            calculateButton.addEventListener('click', updateCircleSplit);
+
+            // Copy LaTeX result logic
+            copyAngleLatexButton.addEventListener('click', async function() {
+                const latexToCopy = resultsDiv.dataset.latex || '';
+                
+                if (latexToCopy) {
+                    try {
+                        await navigator.clipboard.writeText(latexToCopy);
+                        copyAngleLatexButton.textContent = 'Copied! 🎉';
+                        setTimeout(() => { copyAngleLatexButton.textContent = 'Copy LaTeX'; }, 1500);
+                    } catch (err) {
+                        copyAngleLatexButton.textContent = 'Failed! 😢';
+                        setTimeout(() => { copyAngleLatexButton.textContent = 'Copy LaTeX'; }, 1500);
+                    }
+                }
+            });
+
+            // Initial setup draw
+            drawCircle(parseInt(segmentInput.value, 10));
+
         });
     </script>
 </body>
