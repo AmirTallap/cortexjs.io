@@ -4,32 +4,283 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
+        /* --- Base Styles (Dark Background) --- */
         body {
             background-color: #3f3f3f;
+            color: #ccc;
         }
         .custom-math-field {
             width: 100%;
             min-height: 40px;
         }
         .clearButton {
-            white-space: nowrap; /* Prevents button text from wrapping */
+            white-space: nowrap;
         }
-        /* Custom style for the new button */
-        .copy-all-btn {
-            background-color: #007bff; /* Primary blue */
+
+        /* --- Orangish Button Style --- */
+        .copy-all-btn, .clearAll {
+            background-color: #ff9900; /* Bright Orange */
+            color: #3f3f3f;
+            border: 1px solid #ff9900;
+            font-weight: bold;
+        }
+        .copy-all-btn:hover, .clearAll:hover {
+            background-color: #e68a00; /* Darker Orange */
+            border-color: #e68a0e;
+        }
+
+        /* --- Orangish Multi-Level Navigation Styles --- */
+
+        .top-nav, .top-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            background-color: #333333;
+        }
+        
+        /* Main (Level 1) Menu Styling */
+        .top-nav {
+            display: flex;
+            justify-content: flex-start;
+            border-bottom: 2px solid #ff9900;
+            background: linear-gradient(90deg, #333333 0%, #444444 100%);
+        }
+        .top-nav > li {
+            position: relative;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        .top-nav > li:hover {
+            background-color: #555555;
             color: white;
-            border: 1px solid #007bff;
         }
-        .copy-all-btn:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
+
+        /* Active Menu State (Click) */
+        .top-nav > li.show-menu {
+            background-color: #ff9900;
+            color: #3f3f3f;
         }
+        
+        /* Icon Styling for Level 1 */
+        .top-nav > li::before {
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 8px;
+            color: #ffaa33;
+        }
+        .top-nav > li:hover::before, .top-nav > li.show-menu::before {
+            color: #3f3f3f;
+        }
+
+        /* Assign specific icons */
+        .menu-links::before { content: "\f0ac"; } /* fa-globe */
+        .menu-formulas::before { content: "\f128"; } /* fa-flask */
+        .menu-trig::before { content: "\f691"; } /* fa-infinity */
+
+
+        /* Dropdown Menus (Level 2 and deeper) Styling */
+        .top-nav ul {
+            display: none;
+            position: absolute;
+            list-style: none;
+            min-width: 280px;
+            z-index: 1000;
+            background-color: #333333;
+            border: 1px solid #ff9900;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+        }
+        
+        /* Level 2 positioning (drops down) */
+        .top-nav > li > ul {
+            top: 100%;
+            left: 0;
+        }
+
+        /* Level 3+ positioning (flies out to the right) */
+        .top-nav ul ul {
+            top: 0;
+            left: 100%;
+            margin-left: 1px;
+        }
+
+        /* !!! KEY CHANGE: Use .show-menu to display !!! */
+        .top-nav li.show-menu > ul {
+            display: block;
+        }
+
+        /* Styling for all list items within the menu structure */
+        .top-nav li li {
+            position: relative;
+            padding: 10px 15px;
+            cursor: pointer;
+            color: #ccc;
+            white-space: nowrap;
+            transition: background-color 0.2s;
+            border-bottom: 1px solid #4d4d4d;
+        }
+        .top-nav li li:last-child {
+            border-bottom: none;
+        }
+        .top-nav li li:hover {
+            background-color: #555555;
+            color: #ffc973;
+        }
+
+        /* Anchor link styling */
+        .top-nav a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+        }
+        
+        /* Special style for formula items */
+        .formula-item {
+            font-weight: 400;
+            color: #ffc973;
+        }
+        .formula-item:hover {
+            font-weight: bold;
+            background-color: #4d4d4d;
+        }
+
+        /* --- Indicator Icon for Sub-Menus --- */
+        /* Targets any list item that contains a submenu */
+        .top-nav li:has(ul)::after {
+            font-family: 'Font Awesome 6 Free';
+            content: "\f0da"; /* Right arrow/triangle */
+            font-weight: 900;
+            position: absolute;
+            right: 8px;
+            color: #ff9900;
+            transition: transform 0.2s;
+        }
+        /* Rotate the icon when the menu is open (for better visual feedback) */
+        .top-nav li.show-menu:has(ul)::after {
+            transform: rotate(90deg);
+        }
+        /* Hide indicator on top-level items (they have specific icons) AND on items that are formulas but contain a list */
+        .top-nav > li:has(ul)::after, 
+        .top-nav li.formula-item:has(ul)::after {
+            content: none;
+        }
+        
     </style>
     <title>Math Input Interface</title>
 </head>
 <body>
-    <div class="container-fluid text-center mathInputs">
+    <ul class="top-nav">
+        <li class="menu-links">
+            Links
+            <ul>
+                <li><a href="https://github.com/AmirTallap/math" target="_blank">Math proofs</a></li>
+            </ul>
+        </li>
+        <li class="menu-formulas">
+            Formulas
+            <ul>
+                <li>
+                    Algebra
+                    <ul>
+                        <li class="formula-item" data-latex-value="$$ \frac{-b\pm\sqrt{b^2-4ac}}{2a} $$">Quadratic Formula</li>
+                        <li class="formula-item" data-latex-value="$$ (a+b)^2 = a^2 + 2ab + b^2 $$">Binomial Expansion (Squared)</li>
+                        <li class="formula-item" data-latex-value="$$ a^3 + b^3 = (a+b)(a^2-ab+b^2) $$">Sum of Cubes</li>
+                        <li class="formula-item" data-latex-value="$$ a^2 - b^2 = (a-b)(a+b) $$">Difference of Squares</li>
+                        <li class="formula-item" data-latex-value="$$ \log_b(x) = \frac{\ln(x)}{\ln(b)} $$">Change of Base Formula (Log)</li>
+                    </ul>
+                </li>
+                <li>
+                    Differential Calculus
+                    <ul>
+                        <li class="formula-item" data-latex-value="$$ \frac{d}{dx} [f(x)g(x)] = f'(x)g(x) + f(x)g'(x) $$">Product Rule (Derivative)</li>
+                        <li class="formula-item" data-latex-value="$$ \frac{d}{dx} \left[ \frac{f(x)}{g(x)} \right] = \frac{g(x)f'(x) - f(x)g'(x)}{[g(x)]^2} $$">Quotient Rule (Derivative)</li>
+                        <li class="formula-item" data-latex-value="$$ \frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx} $$">Chain Rule (Leibniz Notation)</li>
+                        <li class="formula-item" data-latex-value="$$ \frac{d}{dx} \sin(x) = \cos(x) $$">Derivative of Sine</li>
+                        <li class="formula-item" data-latex-value="$$ \frac{d}{dx} e^x = e^x $$">Derivative of $e^x$</li>
+                    </ul>
+                </li>
+                <li>
+                    Integral Calculus
+                    <ul>
+                        <li class="formula-item" data-latex-value="$$ \int_a^b f(x) \, dx $$">Definite Integral (General)</li>
+                        <li class="formula-item" data-latex-value="$$ \int x^n \, dx = \frac{x^{n+1}}{n+1} + C, \quad n \neq -1 $$">Power Rule (Integral)</li>
+                        <li class="formula-item" data-latex-value="$$ \int \frac{1}{x} \, dx = \ln|x| + C $$">Integral of 1/x</li>
+                        <li class="formula-item" data-latex-value="$$ \int u \, dv = uv - \int v \, du $$">Integration by Parts</li>
+                        <li>
+                            Trig Substitution
+                            <ul>
+                                <li class="formula-item" 
+                                    data-latex-value="
+                                        $$ \sqrt{a^2 - x^2}, \quad x = a\sin\theta, \quad dx = a\cos\theta \, d\theta $$
+                                        $$ \sqrt{a^2 + x^2}, \quad x = a\tan\theta, \quad dx = a\sec^2\theta \, d\theta $$
+                                        $$ \sqrt{x^2 - a^2}, \quad x = a\sec\theta, \quad dx = a\sec\theta\tan\theta \, d\theta $$
+                                    ">All Cases</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="formula-item" data-latex-value="$$ e^{i\pi} + 1 = 0 $$">Euler's Identity (Advanced)</li>
+            </ul>
+        </li>
+        <li class="menu-trig">
+            Trig Identities
+            <ul>
+                <li class="formula-item" data-latex-value="$$ \sin^2\theta + \cos^2\theta = 1 $$">Pythagorean 1</li>
+                <li>
+                    Double Angle
+                    <ul>
+                        <li class="formula-item" data-latex-value="$$ \sin(2\theta) = 2\sin\theta\cos\theta $$">Sine Double Angle</li>
+                        <li class="formula-item" data-latex-value="$$ \cos(2\theta) = \cos^2\theta - \sin^2\theta $$">Cosine Double Angle (1)</li>
+                        <li class="formula-item" data-latex-value="$$ \tan(2\theta) = \frac{2\tan\theta}{1 - \tan^2\theta} $$">Tangent Double Angle</li>
+                    </ul>
+                </li>
+                <li>
+                    Half Angle
+                    <ul>
+                        <li class="formula-item" data-latex-value="$$ \sin\left(\frac{\theta}{2}\right) = \pm\sqrt{\frac{1-\cos\theta}{2}} $$">Sine Half Angle</li>
+                        <li class="formula-item" data-latex-value="$$ \cos\left(\frac{\theta}{2}\right) = \pm\sqrt{\frac{1+\cos\theta}{2}} $$">Cosine Half Angle</li>
+                    </ul>
+                </li>
+                <li>
+                    Sum and Difference
+                    <ul>
+                        <li class="formula-item" data-latex-value="$$ \sin(A \pm B) = \sin A \cos B \pm \cos A \sin B $$">Sine Sum/Difference</li>
+                        <li class="formula-item" data-latex-value="$$ \cos(A \pm B) = \cos A \cos B \mp \sin A \sin B $$">Cosine Sum/Difference</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-formulas">
+            Theorem Proving
+            <ul>
+                <li class="formula-item" 
+                    data-latex-value="
+                        $$ \sin(A+B) = \sin A \cos B + \cos A \sin B $$
+                        $$ \text{Let } A = x \text{ and } B = x $$
+                        $$ \sin(x+x) = \sin x \cos x + \cos x \sin x $$
+                        $$ \sin(2x) = 2\sin x \cos x $$
+                    ">
+                    Proof: Sine Double Angle
+                </li>
+                <li class="formula-item" 
+                    data-latex-value="
+                        $$ \int u \, dv = uv - \int v \, du $$
+                        $$ \text{Choose } u = x \text{ and } dv = e^x \, dx $$
+                        $$ \text{Then } du = dx \text{ and } v = e^x $$
+                        $$ \int x e^x \, dx = x e^x - \int e^x \, dx $$
+                        $$ \int x e^x \, dx = x e^x - e^x + C $$
+                    ">
+                    Proof: Integration by Parts Example
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div class="container-fluid text-center mathInputs mt-3">
         <div class="row align-items-center mb-2">
             <div class="d-flex w-100">
                 <math-field class="custom-math-field flex-grow-1"></math-field>
@@ -65,8 +316,120 @@
             const mathInputsContainer = document.querySelector('.mathInputs');
             const clearAllButton = document.querySelector('.clearAll');
             const copyAllButton = document.querySelector('.copyAll');
+            const topNav = document.querySelector('.top-nav');
+
+            /**
+             * Function to add a new math field and optionally populate it with LaTeX.
+             * This function is updated to use a robust regex to split the multi-line
+             * data attribute into individual formula blocks.
+             * @param {string} [latexValue=''] - The LaTeX string(s) to insert (must contain $$ delimiters).
+             */
+
+
+
+
+/**
+             * Function to add a new math field and optionally populate it with LaTeX.
+             * FIX: Uses RegExp.exec() in a loop to reliably extract captured content
+             * (the LaTeX formula) when the global flag (g) is present, and wraps it 
+             * in the proven insertion pattern.
+             * @param {string} [latexValue=''] - The LaTeX string(s) to insert (must contain $$ delimiters).
+             */
+            function addNewMathFieldWithLatex(latexValue = '') {
+                // Regex: Find $$ (group 1: non-greedy content) $$ - using 's' flag for newlines
+                const regex = /\$\$(.*?)\$\$/gs;
+                let match;
+                const formulaBlocks = [];
+
+                // Use exec() in a loop to extract all captured content (Group 1)
+                while ((match = regex.exec(latexValue)) !== null) {
+                    // match[1] contains the clean content captured inside the (.*?) group
+                    formulaBlocks.push(match[1].trim());
+                }
+
+                // Fallback for an empty click or if the data attribute was empty/malformed
+                if (formulaBlocks.length === 0) {
+                    mathInputsContainer.insertAdjacentHTML('beforeend', mathElement);
+                    const newField = document.querySelector('.mathInputs .custom-math-field:last-child');
+                    if (newField) newField.focus();
+                    return;
+                }
+                
+                // CRUCIAL: Use the proven insertion method for each extracted formula
+                formulaBlocks.forEach(cleanLatex => {
+                    // 1. Add the new field HTML to the DOM
+                    mathInputsContainer.insertAdjacentHTML('beforeend', mathElement);
+
+                    // 2. Get the new field reference
+                    const newFields = document.querySelectorAll('.custom-math-field');
+                    const newField = newFields[newFields.length - 1];
+                    if (!newField) return; // safety check
+                    
+                    // 3. Populate
+                    newField.value = cleanLatex;
+
+                    // 4. Focus and scroll
+                    newField.focus();
+                    newField.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                });
+            }
+
+
+          
+            // --- Menu Activation & Closing Logic (No changes needed here) ---
+
+            /** Closes all open menus at any level. */
+            function closeAllMenus() {
+                document.querySelectorAll('.top-nav li.show-menu').forEach(li => {
+                    li.classList.remove('show-menu');
+                });
+            }
+
+            // 1. Handle Menu Clicks (Open/Close Parent Menus)
+            topNav.addEventListener('click', function(event) {
+                const targetLi = event.target.closest('.top-nav > li');
+                const clickedFormulaItem = event.target.closest('li.formula-item');
+                const clickedParentLi = event.target.closest('.top-nav li');
+
+                if (clickedFormulaItem) {
+                    // If a formula is clicked, process it, then close all menus
+                    const latexValue = clickedFormulaItem.getAttribute('data-latex-value');
+                    if (latexValue) {
+                        // Use the updated function to handle multi-line insertion
+                        addNewMathFieldWithLatex(latexValue);
+                    }
+                    closeAllMenus();
+                    return;
+                }
+
+                // Check if the click was on a parent list item that contains a submenu
+                if (clickedParentLi && clickedParentLi.querySelector('ul')) {
+                    event.stopPropagation(); // Prevent the document click listener from firing immediately
+
+                    const isCurrentlyOpen = clickedParentLi.classList.contains('show-menu');
+
+                    // If it's a top-level parent (Level 1), close all others first
+                    if (targetLi === clickedParentLi) {
+                        closeAllMenus();
+                    }
+                    
+                    // Toggle the 'show-menu' class on the clicked list item
+                    clickedParentLi.classList.toggle('show-menu');
+                } else if (clickedParentLi) {
+                    // If a simple link/item (without formula) is clicked, close all menus
+                    closeAllMenus();
+                }
+            });
+
+            // 2. Handle Off-Click Closing
+            document.addEventListener('click', function(event) {
+                // If the click is outside the entire top-nav, close all menus
+                if (!event.target.closest('.top-nav')) {
+                    closeAllMenus();
+                }
+            });
     
-            // --- Input Field and Enter Key Logic ---
+            // --- Input Field and Enter Key Logic (No change needed) ---
             document.addEventListener('keydown', function(event) {
                 const activeElement = document.activeElement;
                 const isInsideSpecificInput = activeElement.classList.contains('custom-math-field');
@@ -75,25 +438,20 @@
                     const fields = Array.from(document.querySelectorAll('.custom-math-field'));
                     const index = fields.indexOf(activeElement);
                     if (index === fields.length - 1) {
-                        // Add new field and focus on it
-                        mathInputsContainer.insertAdjacentHTML('beforeend', mathElement);
-                        const newFields = document.querySelectorAll('.custom-math-field');
-                        newFields[newFields.length - 1].focus();
+                        addNewMathFieldWithLatex();
                     } else {
-                        // Focus on next field
                         fields[index + 1].focus();
                     }
                 }
             });
     
-            // --- Remove Button Logic ---
+            // --- Remove Button Logic (No change needed) ---
             mathInputsContainer.addEventListener('click', function (event) {
                 if (event.target.classList.contains('clearButton')) {
                     const row = event.target.closest('.row');
                     if (row) {
                         row.remove();
                         const remainingFields = mathInputsContainer.querySelectorAll('.custom-math-field');
-                        // If all fields are removed, call the Clear All logic to restore the first one
                         if (remainingFields.length === 0) {
                             clearAllButton.click();
                         }
@@ -101,19 +459,13 @@
                 }
             });
     
-            // --- Clear All Button Logic ---
+            // --- Clear All Button Logic (No change needed) ---
             clearAllButton.addEventListener('click', function () {
                 mathInputsContainer.innerHTML = '';
-                // Add the initial math field back
-                mathInputsContainer.insertAdjacentHTML('beforeend', mathElement);
-                // The new field should be focused immediately for better UX
-                const newField = mathInputsContainer.querySelector('.custom-math-field');
-                if (newField) {
-                    newField.focus();
-                }
+                addNewMathFieldWithLatex();
             });
 
-            // --- Copy All Button Logic ---
+            // --- Copy All Button Logic (No change needed) ---
             copyAllButton.addEventListener('click', async function () {
                 const fields = document.querySelectorAll('.custom-math-field');
                 let allContent = [];
