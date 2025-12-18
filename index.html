@@ -202,158 +202,404 @@
     <title>Math Input Interface</title>
 </head>
 <body>
-    <ul class="top-nav">
-        <li class="menu-links">
-            Links
-            <ul>
-                <li><a href="https://github.com/AmirTallap/math" target="_blank">Math proofs</a></li>
-                <li><a href="https://www.desmos.com/calculator" target="_blank">Desmos Calculator</a></li>
-                <li><a href="https://www.desmos.com/geometry/uvhla17qp3" target="_blank">Desmos Geometry</a></li>
-                <li><a href="https://www.desmos.com/3d" target="_blank">Desmos 3d</a></li>
-            </ul>
-        </li>
-        <li class="menu-formulas">
-            Formulas
-            <ul>
-                <li>
-                    Algebra
-                    <ul>
-                        <li class="formula-item" data-latex-value="$$ \frac{-b\pm\sqrt{b^2-4ac}}{2a} $$">Quadratic Formula</li>
-                        <li class="formula-item" data-latex-value="$$ (a+b)^2 = a^2 + 2ab + b^2 $$">Binomial Expansion (Squared)</li>
-                        <li class="formula-item" data-latex-value="$$ a^3 + b^3 = (a+b)(a^2-ab+b^2) $$">Sum of Cubes</li>
-                        <li class="formula-item" data-latex-value="$$ a^2 - b^2 = (a-b)(a+b) $$">Difference of Squares</li>
-                        <li class="formula-item" data-latex-value="$$ \log_b(x) = \frac{\ln(x)}{\ln(b)} $$">Change of Base Formula (Log)</li>
-                    </ul>
-                </li>
-                <li>
-                    Differential Calculus
-                    <ul>
-                        <li class="formula-item" data-latex-value="$$ \frac{d}{dx} [f(x)g(x)] = f'(x)g(x) + f(x)g'(x) $$">Product Rule (Derivative)</li>
-                        <li class="formula-item" data-latex-value="$$ \frac{d}{dx} \left[ \frac{f(x)}{g(x)} \right] = \frac{g(x)f'(x) - f(x)g'(x)}{[g(x)]^2} $$">Quotient Rule (Derivative)</li>
-                        <li class="formula-item" data-latex-value="$$ \frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx} $$">Chain Rule (Leibniz Notation)</li>
-                        <li class="formula-item" data-latex-value="$$ \frac{d}{dx} \sin(x) = \cos(x) $$">Derivative of Sine</li>
-                        <li class="formula-item" data-latex-value="$$ \frac{d}{dx} e^x = e^x $$">Derivative of $e^x$</li>
-                    </ul>
-                </li>
-                <li class="formula-item" data-latex-value="$$ I.\,\dfrac{d}{dx}\int_{a}^{x}f(t)\,dt=f(x) $$
-$$ II.\,{\displaystyle\int_{a}^{b}\!\!f(x)dx=F(b)\!-\!\!F(a)} $$">Fundamental theorem of calculus)</li>
+<ul class="top-nav">
+    <li class="menu-links">
+        External Tools
+        <ul>
+            <li><a href="https://github.com/AmirTallap/math" target="_blank">Math Proofs Repository</a></li>
+            <li><a href="https://www.desmos.com/calculator" target="_blank">Desmos Calculator</a></li>
+            <li><a href="https://www.desmos.com/geometry/uvhla17qp3" target="_blank">Desmos Geometry</a></li>
+            <li><a href="https://www.desmos.com/3d" target="_blank">Desmos 3D</a></li>
+            <li><a href="https://www.wolframalpha.com/" target="_blank">WolframAlpha</a></li>
+            <li><a href="https://www.integral-calculator.com/" target="_blank">Integral Calculator</a></li>
+        </ul>
+    </li>
 
-                <li>
-                    Integral Calculus
-                    <ul>
-                        <li class="formula-item" data-latex-value="$$ \int_a^b f(x) \, dx $$">Definite Integral (General)</li>
-                        <li class="formula-item" data-latex-value="$$ \int x^n \, dx = \frac{x^{n+1}}{n+1} + C, \quad n \neq -1 $$">Power Rule (Integral)</li>
-                        <li class="formula-item" data-latex-value="$$ \int \frac{1}{x} \, dx = \ln|x| + C $$">Integral of 1/x</li>
-                        <li class="formula-item" data-latex-value="$$ \int u \, dv = uv - \int v \, du $$">Integration by Parts</li>
-                        <li>
-                            Trig Substitution
-                            <ul>
-                                <li class="formula-item" 
-                                    data-latex-value="
-                                        $$ \sqrt{a^2 - x^2}, \quad x = a\sin\theta, \quad dx = a\cos\theta \, d\theta $$
-                                        $$ \sqrt{a^2 + x^2}, \quad x = a\tan\theta, \quad dx = a\sec^2\theta \, d\theta $$
-                                        $$ \sqrt{x^2 - a^2}, \quad x = a\sec\theta, \quad dx = a\sec\theta\tan\theta \, d\theta $$
-                                    ">All Cases</li>
-                            </ul>
-                        </li>
+    <li class="menu-formulas">
+        Algebra
+        <ul>
+            <li>
+                Quadratic & Polynomials
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$">Quadratic Formula</li>
+                    <li class="formula-item" data-latex-value="$$ ax^2 + bx + c = a(x - r_1)(x - r_2) $$">Factored Form (Roots)</li>
+                    <li class="formula-item" data-latex-value="$$ (a+b)^2 = a^2 + 2ab + b^2 $$">Binomial Square</li>
+                    <li class="formula-item" data-latex-value="$$ (a-b)^2 = a^2 - 2ab + b^2 $$">Binomial Square (Difference)</li>
+                    <li class="formula-item" data-latex-value="$$ a^2 - b^2 = (a-b)(a+b) $$">Difference of Squares</li>
+                    <li class="formula-item" data-latex-value="$$ a^3 + b^3 = (a+b)(a^2 - ab + b^2) $$">Sum of Cubes</li>
+                    <li class="formula-item" data-latex-value="$$ a^3 - b^3 = (a-b)(a^2 + ab + b^2) $$">Difference of Cubes</li>
+                    <li class="formula-item" data-latex-value="$$ (a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3 $$">Binomial Cube</li>
+                </ul>
+            </li>
+            <li>
+                Exponents & Logarithms
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ a^m \cdot a^n = a^{m+n} $$">Product Rule</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{a^m}{a^n} = a^{m-n} $$">Quotient Rule</li>
+                    <li class="formula-item" data-latex-value="$$ (a^m)^n = a^{mn} $$">Power of a Power</li>
+                    <li class="formula-item" data-latex-value="$$ \log_b(xy) = \log_b x + \log_b y $$">Log Product Rule</li>
+                    <li class="formula-item" data-latex-value="$$ \log_b\left(\frac{x}{y}\right) = \log_b x - \log_b y $$">Log Quotient Rule</li>
+                    <li class="formula-item" data-latex-value="$$ \log_b(x^n) = n \log_b x $$">Log Power Rule</li>
+                    <li class="formula-item" data-latex-value="$$ \log_b x = \frac{\ln x}{\ln b} $$">Change of Base Formula</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+    <li class="menu-formulas">
+        Differential Calculus
+        <ul>
+            <li>
+                Derivative Rules
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \frac{d}{dx}[c] = 0 $$">Constant Rule</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{d}{dx}[x^n] = n x^{n-1} $$">Power Rule</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{d}{dx}[e^x] = e^x $$">Exponential (e^x)</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{d}{dx}[a^x] = a^x \ln a $$">Exponential (a^x)</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{d}{dx}[\ln x] = \frac{1}{x} $$">Natural Log</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{d}{dx}[\sin x] = \cos x $$">Sine</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{d}{dx}[\cos x] = -\sin x $$">Cosine</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{d}{dx}[\tan x] = \sec^2 x $$">Tangent</li>
+                </ul>
+            </li>
+            <li>
+                Derivative Techniques
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \frac{d}{dx}[f(x)g(x)] = f'(x)g(x) + f(x)g'(x) $$">Product Rule</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{d}{dx}\left[\frac{f(x)}{g(x)}\right] = \frac{g(x)f'(x) - f(x)g'(x)}{[g(x)]^2} $$">Quotient Rule</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx} $$">Chain Rule</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{dy}{dx} = \frac{dy/dt}{dx/dt} $$">Parametric Derivative</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{dy}{dx} = -\frac{F_x}{F_y} $$">Implicit Differentiation</li>
+                </ul>
+            </li>
+            <li>
+                Applications
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ f'(x) = \lim_{h \to 0} \frac{f(x+h)-f(x)}{h} $$">Limit Definition</li>
+                    <li class="formula-item" data-latex-value="$$ L(x) = f(a) + f'(a)(x-a) $$">Linear Approximation</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{d^2y}{dx^2} = \frac{d}{dx}\left(\frac{dy}{dx}\right) $$">Second Derivative</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+    <li class="menu-formulas">
+        Integral Calculus
+        <ul>
+            <li>
+                Fundamental Theorems
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \frac{d}{dx} \int_a^x f(t) \, dt = f(x) $$">FTC Part I</li>
+                    <li class="formula-item" data-latex-value="$$ \int_a^b f(x) \, dx = F(b) - F(a) $$">FTC Part II</li>
+                </ul>
+            </li>
+            <li>
+                Basic Integrals
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \int x^n \, dx = \frac{x^{n+1}}{n+1} + C, \quad n \neq -1 $$">Power Rule</li>
+                    <li class="formula-item" data-latex-value="$$ \int \frac{1}{x} \, dx = \ln|x| + C $$">Integral of 1/x</li>
+                    <li class="formula-item" data-latex-value="$$ \int e^x \, dx = e^x + C $$">Exponential (e^x)</li>
+                    <li class="formula-item" data-latex-value="$$ \int a^x \, dx = \frac{a^x}{\ln a} + C $$">Exponential (a^x)</li>
+                </ul>
+            </li>
+            <li>
+                Trigonometric Integrals
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \int \sin x \, dx = -\cos x + C $$">Sine</li>
+                    <li class="formula-item" data-latex-value="$$ \int \cos x \, dx = \sin x + C $$">Cosine</li>
+                    <li class="formula-item" data-latex-value="$$ \int \sec^2 x \, dx = \tan x + C $$">Secant Squared</li>
+                    <li class="formula-item" data-latex-value="$$ \int \sec x \tan x \, dx = \sec x + C $$">Secant-Tangent</li>
+                    <li class="formula-item" data-latex-value="$$ \int \csc^2 x \, dx = -\cot x + C $$">Cosecant Squared</li>
+                    <li class="formula-item" data-latex-value="$$ \int \csc x \cot x \, dx = -\csc x + C $$">Cosecant-Cotangent</li>
+                </ul>
+            </li>
+            <li>
+                Integration Techniques
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \int u \, dv = uv - \int v \, du $$">Integration by Parts</li>
+                    <li>
+                        Trigonometric Substitution
+                        <ul>
                             <li class="formula-item" 
                                 data-latex-value="
-                                    $$ \displaystyle\int\sin(x)\,dx=-\cos(x)+C $$
-                                    $$ \displaystyle\int\cos(x)\,dx=\sin(x)+C $$
-                                    $$ \displaystyle\int\sec^2(x)\,dx=\tan(x)+C $$
-                                    $$ \displaystyle\int\csc^2(x)\,dx=-\cot(x)+C $$
-                                    $$ \displaystyle\int\sec(x)\tan(x)\,dx=\sec(x)+C $$
-                                    $$ \displaystyle\int\csc(x)\cot(x)\,dx=-\csc(x)+C $$
-                                ">Trigonometric functions</li>
+                                    $$ \sqrt{a^2 - x^2} \Rightarrow x = a\sin\theta $$
+                                    $$ \sqrt{a^2 + x^2} \Rightarrow x = a\tan\theta $$
+                                    $$ \sqrt{x^2 - a^2} \Rightarrow x = a\sec\theta $$
+                                ">Three Cases</li>
+                        </ul>
+                    </li>
+                    <li class="formula-item" data-latex-value="$$ \int \frac{dx}{a^2 + x^2} = \frac{1}{a} \arctan\left(\frac{x}{a}\right) + C $$">Arctan Integral</li>
+                    <li class="formula-item" data-latex-value="$$ \int \frac{dx}{\sqrt{a^2 - x^2}} = \arcsin\left(\frac{x}{a}\right) + C $$">Arcsin Integral</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
 
-                                <li class="formula-item" 
-                                data-latex-value="
-                                    $$ \displaystyle\int\dfrac{1}{\sqrt{a^2-x^2}}\,dx=\arcsin\left(\dfrac{x}{a}\right)+C $$
-                                    $$ \displaystyle\int\dfrac{1}{a^2+x^2}\,dx=\dfrac{1}{a}\arctan\left(\dfrac{x}{a}\right)+C $$
-                                ">Inverse trigonometric Integrals</li>
+    <li class="menu-formulas">
+        Limits & Series
+        <ul>
+            <li>
+                Limit Rules
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \lim_{x \to a} [f(x) \pm g(x)] = \lim_{x \to a} f(x) \pm \lim_{x \to a} g(x) $$">Sum/Difference</li>
+                    <li class="formula-item" data-latex-value="$$ \lim_{x \to a} \frac{f(x)}{g(x)} = \frac{\lim_{x \to a} f(x)}{\lim_{x \to a} g(x)}, \quad \text{if } \lim_{x \to a} g(x) \neq 0 $$">Quotient Rule</li>
+                    <li class="formula-item" data-latex-value="$$ \lim_{x \to 0} \frac{\sin x}{x} = 1 $$">Sine Limit</li>
+                    <li class="formula-item" data-latex-value="$$ \lim_{x \to 0} \frac{1 - \cos x}{x} = 0 $$">Cosine Limit</li>
+                </ul>
+            </li>
+            <li>
+                L'Hôpital's Rule
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)} \quad \text{if } \frac{0}{0} \text{ or } \frac{\infty}{\infty} $$">Basic Form</li>
+                </ul>
+            </li>
+            <li>
+                Series Expansions
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} $$">Exponential</li>
+                    <li class="formula-item" data-latex-value="$$ \sin x = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n+1}}{(2n+1)!} $$">Sine</li>
+                    <li class="formula-item" data-latex-value="$$ \cos x = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n}}{(2n)!} $$">Cosine</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{1}{1-x} = \sum_{n=0}^{\infty} x^n, \quad |x| < 1 $$">Geometric</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
 
-                                <li class="formula-item" 
-                                data-latex-value="
-                                    $$ \displaystyle\int e^x\,dx=e^x+C $$
-                                    $$ \displaystyle\int a^x\,dx=\dfrac{a^x}{\ln(a)}+C $$
-                                ">Exponential functions</li>
+    <li class="menu-formulas">
+        Multivariable Calculus
+        <ul>
+            <li>
+                Partial Derivatives
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ f_x = \frac{\partial f}{\partial x} = \lim_{h \to 0} \frac{f(x+h,y)-f(x,y)}{h} $$">Definition</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{\partial}{\partial x}(uv) = u_x v + u v_x $$">Product Rule</li>
+                </ul>
+            </li>
+            <li>
+                Gradient & Directional Derivative
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \nabla f = \left\langle \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right\rangle $$">Gradient</li>
+                    <li class="formula-item" data-latex-value="$$ D_{\mathbf{u}} f = \nabla f \cdot \mathbf{u} $$">Directional Derivative</li>
+                </ul>
+            </li>
+            <li>
+                Multiple Integrals
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \iint_R f(x,y) \, dA $$">Double Integral</li>
+                    <li class="formula-item" data-latex-value="$$ \iiint_D f(x,y,z) \, dV $$">Triple Integral</li>
+                    <li class="formula-item" data-latex-value="$$ \iint_R f(x,y) \, dA = \int_a^b \int_{g_1(x)}^{g_2(x)} f(x,y) \, dy \, dx $$">Iterated Form</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
 
-                                
-                    </ul>
-                </li>
-                <li class="formula-item" data-latex-value="$$ e^{i\pi} + 1 = 0 $$">Euler's Identity (Advanced)</li>
-            </ul>
-        </li>
-        <li class="menu-trig">
-            Trig Identities
-            <ul>
-                <li class="formula-item" data-latex-value="$$ \sin^2\theta + \cos^2\theta = 1 $$">Pythagorean 1</li>
-                <li>
-                    Double Angle
-                    <ul>
-                        <li class="formula-item" data-latex-value="$$ \sin(2\theta) = 2\sin\theta\cos\theta $$">Sine Double Angle</li>
-                        <li class="formula-item" data-latex-value="$$ \cos(2\theta) = \cos^2\theta - \sin^2\theta $$">Cosine Double Angle (1)</li>
-                        <li class="formula-item" data-latex-value="$$ \tan(2\theta) = \frac{2\tan\theta}{1 - \tan^2\theta} $$">Tangent Double Angle</li>
-                    </ul>
-                </li>
-                <li>
-                    Half Angle
-                    <ul>
-                        <li class="formula-item" data-latex-value="$$ \sin\left(\frac{\theta}{2}\right) = \pm\sqrt{\frac{1-\cos\theta}{2}} $$">Sine Half Angle</li>
-                        <li class="formula-item" data-latex-value="$$ \cos\left(\frac{\theta}{2}\right) = \pm\sqrt{\frac{1+\cos\theta}{2}} $$">Cosine Half Angle</li>
-                    </ul>
-                </li>
-                <li>
-                    Sum and Difference
-                    <ul>
-                        <li class="formula-item" data-latex-value="$$ \sin(A \pm B) = \sin A \cos B \pm \cos A \sin B $$">Sine Sum/Difference</li>
-                        <li class="formula-item" data-latex-value="$$ \cos(A \pm B) = \cos A \cos B \mp \sin A \sin B $$">Cosine Sum/Difference</li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <li class="menu-formulas">
-            Theorem Proving
-            <ul>
-                <li class="formula-item" 
-                    data-latex-value="
-                        $$ \sin(A+B) = \sin A \cos B + \cos A \sin B $$
-                        $$ \text{Let } A = x \text{ and } B = x $$
-                        $$ \sin(x+x) = \sin x \cos x + \cos x \sin x $$
-                        $$ \sin(2x) = 2\sin x \cos x $$
-                    ">
-                    Proof: Sine Double Angle
-                </li>
-                <li class="formula-item" 
-                    data-latex-value="
-                        $$ \int u \, dv = uv - \int v \, du $$
-                        $$ \text{Choose } u = x \text{ and } dv = e^x \, dx $$
-                        $$ \text{Then } du = dx \text{ and } v = e^x $$
-                        $$ \int x e^x \, dx = x e^x - \int e^x \, dx $$
-                        $$ \int x e^x \, dx = x e^x - e^x + C $$
-                    ">
-                    Proof: Integration by Parts Example 1
-                </li>
-                <li class="formula-item" 
-                    data-latex-value="
-                        $$ \frac{d}{\differentialD x}\left\lbrack f\left(x\right)g\left(x\right)\right\rbrack=f^{\prime}\left(x\right)g\left(x\right)+f\left(x\right)g^{\prime}\left(x\right) $$
-                        $$ f\left(x\right)g\left(x\right)=\int_{}^{}f^{\prime}\left(x\right)g\left(x\right)\differentialD x+\int_{}^{}f\left(x\right)g^{\prime}\left(x\right)\differentialD x $$
-                        $$ \int_{}^{}f\left(x\right)g^{\prime}\left(x\right)\differentialD x=f\left(x\right)g\left(x\right)-\int_{}^{}f^{\prime}\left(x\right)g\left(x\right)\differentialD x $$
-                        $$ \int_{}^{}f\left(x\right)^{\prime}g\left(x\right)\differentialD x=f\left(x\right)g\left(x\right)-f^{}\left(x\right)g\left(x\right)^{\prime}\differentialD x $$
+    <li class="menu-trig">
+        Trigonometry
+        <ul>
+            <li>
+                Pythagorean Identities
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \sin^2\theta + \cos^2\theta = 1 $$">Basic</li>
+                    <li class="formula-item" data-latex-value="$$ 1 + \tan^2\theta = \sec^2\theta $$">With Tangent</li>
+                    <li class="formula-item" data-latex-value="$$ 1 + \cot^2\theta = \csc^2\theta $$">With Cotangent</li>
+                </ul>
+            </li>
+            <li>
+                Angle Sum/Difference
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \sin(A \pm B) = \sin A \cos B \pm \cos A \sin B $$">Sine</li>
+                    <li class="formula-item" data-latex-value="$$ \cos(A \pm B) = \cos A \cos B \mp \sin A \sin B $$">Cosine</li>
+                    <li class="formula-item" data-latex-value="$$ \tan(A \pm B) = \frac{\tan A \pm \tan B}{1 \mp \tan A \tan B} $$">Tangent</li>
+                </ul>
+            </li>
+            <li>
+                Double Angle
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \sin 2\theta = 2\sin\theta\cos\theta $$">Sine</li>
+                    <li class="formula-item" data-latex-value="$$ \cos 2\theta = \cos^2\theta - \sin^2\theta $$">Cosine (Form 1)</li>
+                    <li class="formula-item" data-latex-value="$$ \cos 2\theta = 2\cos^2\theta - 1 $$">Cosine (Form 2)</li>
+                    <li class="formula-item" data-latex-value="$$ \cos 2\theta = 1 - 2\sin^2\theta $$">Cosine (Form 3)</li>
+                    <li class="formula-item" data-latex-value="$$ \tan 2\theta = \frac{2\tan\theta}{1 - \tan^2\theta} $$">Tangent</li>
+                </ul>
+            </li>
+            <li>
+                Half Angle
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \sin\left(\frac{\theta}{2}\right) = \pm\sqrt{\frac{1 - \cos\theta}{2}} $$">Sine</li>
+                    <li class="formula-item" data-latex-value="$$ \cos\left(\frac{\theta}{2}\right) = \pm\sqrt{\frac{1 + \cos\theta}{2}} $$">Cosine</li>
+                    <li class="formula-item" data-latex-value="$$ \tan\left(\frac{\theta}{2}\right) = \frac{1 - \cos\theta}{\sin\theta} = \frac{\sin\theta}{1 + \cos\theta} $$">Tangent</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
 
-                    ">
-                    Proof: Integration by Parts Product rule
-                </li>
-            </ul>
-        </li>
-        <li class="menu-tools">
-            Tools
-            <ul>
-                <li data-toggle="modal" data-target="#circleSplitterModal">Circle Splitter</li>
-                <li data-toggle="modal" data-target="#triangleSolverModal">Right Triangle Solver (Coming Soon)</li>
-            </ul>
-        </li>
-    </ul>
+    <li class="menu-formulas">
+        Geometry & Vectors
+        <ul>
+            <li>
+                Planar Geometry
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ A_{\text{circle}} = \pi r^2 $$">Circle Area</li>
+                    <li class="formula-item" data-latex-value="$$ C_{\text{circle}} = 2\pi r $$">Circumference</li>
+                    <li class="formula-item" data-latex-value="$$ A_{\text{triangle}} = \frac{1}{2}bh $$">Triangle Area</li>
+                    <li class="formula-item" data-latex-value="$$ A_{\text{triangle}} = \frac{1}{2}ab\sin C $$">Triangle Area (SAS)</li>
+                    <li class="formula-item" data-latex-value="$$ c^2 = a^2 + b^2 - 2ab\cos C $$">Law of Cosines</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C} $$">Law of Sines</li>
+                </ul>
+            </li>
+            <li>
+                Coordinate Geometry
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2} $$">Distance Formula</li>
+                    <li class="formula-item" data-latex-value="$$ m = \frac{y_2 - y_1}{x_2 - x_1} $$">Slope</li>
+                    <li class="formula-item" data-latex-value="$$ y - y_1 = m(x - x_1) $$">Point-Slope Form</li>
+                    <li class="formula-item" data-latex-value="$$ Ax + By + C = 0 $$">General Line Equation</li>
+                </ul>
+            </li>
+            <li>
+                Vectors
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \mathbf{a} \cdot \mathbf{b} = a_1b_1 + a_2b_2 + a_3b_3 $$">Dot Product</li>
+                    <li class="formula-item" data-latex-value="$$ \mathbf{a} \times \mathbf{b} = \begin{vmatrix} \mathbf{i} & \mathbf{j} & \mathbf{k} \\ a_1 & a_2 & a_3 \\ b_1 & b_2 & b_3 \end{vmatrix} $$">Cross Product</li>
+                    <li class="formula-item" data-latex-value="$$ \|\mathbf{a}\| = \sqrt{a_1^2 + a_2^2 + a_3^2} $$">Magnitude</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+    <li class="menu-formulas">
+        Differential Equations
+        <ul>
+            <li>
+                First Order
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \frac{dy}{dx} = f(x)g(y) \Rightarrow \int \frac{dy}{g(y)} = \int f(x) \, dx $$">Separable</li>
+                    <li class="formula-item" data-latex-value="$$ \frac{dy}{dx} + P(x)y = Q(x) $$">Linear Form</li>
+                    <li class="formula-item" data-latex-value="$$ y = e^{-\int P \, dx} \left[ \int Q e^{\int P \, dx} \, dx + C \right] $$">Integrating Factor</li>
+                </ul>
+            </li>
+            <li>
+                Second Order Linear
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ ay'' + by' + cy = 0 $$">Homogeneous</li>
+                    <li class="formula-item" data-latex-value="$$ ar^2 + br + c = 0 $$">Characteristic Equation</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+    <li class="menu-formulas">
+        Linear Algebra
+        <ul>
+            <li>
+                Matrices
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \det\begin{pmatrix} a & b \\ c & d \end{pmatrix} = ad - bc $$">2x2 Determinant</li>
+                    <li class="formula-item" data-latex-value="$$ A^{-1} = \frac{1}{\det(A)} \text{adj}(A) $$">Inverse Formula</li>
+                    <li class="formula-item" data-latex-value="$$ A\mathbf{x} = \mathbf{b} \Rightarrow \mathbf{x} = A^{-1}\mathbf{b} $$">System Solution</li>
+                </ul>
+            </li>
+            <li>
+                Eigenvalues
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \det(A - \lambda I) = 0 $$">Characteristic Polynomial</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+    <li class="menu-formulas">
+        Advanced & Useful
+        <ul>
+            <li class="formula-item" data-latex-value="$$ e^{i\theta} = \cos\theta + i\sin\theta $$">Euler's Formula</li>
+            <li class="formula-item" data-latex-value="$$ e^{i\pi} + 1 = 0 $$">Euler's Identity</li>
+            <li class="formula-item" data-latex-value="$$ \frac{d}{dx}[f^{-1}(x)] = \frac{1}{f'(f^{-1}(x))} $$">Derivative of Inverse</li>
+            <li class="formula-item" data-latex-value="$$ \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi} $$">Gaussian Integral</li>
+            <li class="formula-item" data-latex-value="$$ \Gamma(n) = (n-1)! $$">Gamma Function (Integer)</li>
+        </ul>
+    </li>
+
+    <li class="menu-formulas">
+        Problem-Solving Strategies
+        <ul>
+            <li>
+                Integration Guide
+                <ul>
+                    <li class="formula-item" data-latex-value="$$
+\begin{array}{|c|c|}
+\hline
+\text{Form} & \text{Technique} \\
+\hline
+\int f(ax+b) \, dx & \text{Simple substitution} \\
+\int x^n e^x \, dx & \text{Integration by parts} \\
+\int \frac{p(x)}{q(x)} \, dx & \text{Partial fractions} \\
+\int \sqrt{a^2-x^2} \, dx & \text{Trig substitution} \\
+\hline
+\end{array}
+$$">Technique Selection</li>
+                </ul>
+            </li>
+            <li>
+                Common Checks
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \text{Derivative Check: } \frac{d}{dx} \left[ \int f(x) \, dx \right] = f(x) $$">Antiderivative Verification</li>
+                    <li class="formula-item" data-latex-value="$$ \text{Domain: } \sqrt{x} \Rightarrow x \geq 0, \quad \ln(x) \Rightarrow x > 0 $$">Domain Restrictions</li>
+                </ul>
+            </li>
+            <li>
+                Symmetry Exploitation
+                <ul>
+                    <li class="formula-item" data-latex-value="$$ \int_{-a}^a f(x) \, dx = \begin{cases} 0 & \text{if } f \text{ is odd} \\ 2\int_0^a f(x) \, dx & \text{if } f \text{ is even} \end{cases} $$">Even/Odd Functions</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+    <li class="menu-formulas">
+        Theorem Proving
+        <ul>
+            <li class="formula-item" 
+                data-latex-value="
+                    $$ \sin(A+B) = \sin A \cos B + \cos A \sin B $$
+                    $$ \text{Let } A = x \text{ and } B = x $$
+                    $$ \sin(x+x) = \sin x \cos x + \cos x \sin x $$
+                    $$ \sin(2x) = 2\sin x \cos x $$
+                ">
+                Proof: Sine Double Angle
+            </li>
+            <li class="formula-item" 
+                data-latex-value="
+                    $$ \int u \, dv = uv - \int v \, du $$
+                    $$ \text{Choose } u = x \text{ and } dv = e^x \, dx $$
+                    $$ \text{Then } du = dx \text{ and } v = e^x $$
+                    $$ \int x e^x \, dx = x e^x - \int e^x \, dx $$
+                    $$ \int x e^x \, dx = x e^x - e^x + C $$
+                ">
+                Proof: Integration by Parts Example 1
+            </li>
+            <li class="formula-item" 
+                data-latex-value="
+                    $$ \frac{d}{dx}[f(x)g(x)] = f'(x)g(x) + f(x)g'(x) $$
+                    $$ f(x)g(x) = \int f'(x)g(x) \, dx + \int f(x)g'(x) \, dx $$
+                    $$ \int f(x)g'(x) \, dx = f(x)g(x) - \int f'(x)g(x) \, dx $$
+                ">
+                Proof: Integration by Parts from Product Rule
+            </li>
+        </ul>
+    </li>
+
+    <li class="menu-tools">
+        Interactive Tools
+        <ul>
+            <li data-toggle="modal" data-target="#circleSplitterModal">Circle Splitter</li>
+            <li data-toggle="modal" data-target="#triangleSolverModal">Right Triangle Solver</li>
+            <li data-toggle="modal" data-target="#formulaReferenceModal">Formula Reference</li>
+            <li data-toggle="modal" data-target="#graphingToolModal">Graphing Tool</li>
+            <li data-toggle="modal" data-target="#integratorToolModal">Integrator Tool</li>
+            <li data-toggle="modal" data-target="#matrixCalculatorModal">Matrix Calculator</li>
+        </ul>
+    </li>
+</ul>
     <div class="container-fluid text-center mathInputs mt-3">
         <div class="row align-items-center mb-2">
             <div class="d-flex w-100">
