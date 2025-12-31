@@ -332,6 +332,58 @@
                     <li class="formula-item" data-latex-value="$$ \int \frac{dx}{\sqrt{a^2 - x^2}} = \arcsin\left(\frac{x}{a}\right) + C $$">Arcsin Integral</li>
                 </ul>
             </li>
+            <li>
+                Application of integrals
+                <ul>
+                    <li>
+                        Volume Calculations
+                        <ul>
+                            <li class="formula-item" 
+                                data-latex-value="
+                                    $$ Area=\pi r^2 $$
+                                    $$ AreaIsSolid\left(NoHole\right) $$
+                                    $$ RotationAroundThe\left(x\right)Axis,Or\left(y\right)=k $$
+                                    $$ V=\pi\int_{a}^{b}[f(x)]^2\,dx $$
+                                    $$ RotationAroundThe\left(y\right)Axis,Or\left(x\right)=h $$
+                                    $$ V = \pi \int_{c}^{d} [g(y)]^2 \, dy $$
+                                ">The Disk Method</li>
+
+
+                                <li class="formula-item" 
+                                data-latex-value="
+                                    $$ AreaHasAHollow\mathbb{C}ORE,R_{outer}-R_{InNer} $$
+                                    $$ V=\left(\pi R^2-\pi r^2\right) $$
+                                    $$ Around\left(X\right)Axis\left(\differentialD x\right) $$
+                                    $$ V = \pi \int_{a}^{b} \left( [R(x)]^2 - [r(x)]^2 \right) \, dx $$
+                                    $$ Around\left(Y\right)Axis\left(\differentialD y\right) $$
+                                    $$ V = \pi \int_{c}^{d} \left( [R(y)]^2 - [r(y)]^2 \right) \, dy $$
+                                ">The Washer Method</li>
+
+                                <li class="formula-item" 
+                                data-latex-value="
+                                    $$ ِ\text{Rotation around y-axis (using }dx\text{)} $$
+                                    $$ V = 2\pi \int_{a}^{b} (x) \cdot |f(x)| \, dx $$
+                                    $$ \text{Rotation around x-axis (using }dy\text{)} $$
+                                    $$ V = 2\pi \int_{c}^{d} (y) \cdot |g(y)| \, dy $$
+                                ">The Shell Method</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Arc calculation
+                        <ul>
+                            <li class="formula-item" 
+                                data-latex-value="
+                                    $$ ArcLeng\operatorname{\mathrm{th}}\left(UseWhenYouNeedTheExactArcLeng\operatorname{\mathrm{th}}\right) $$
+                                    $$ Derived from the Pythagorean theorem ($a^2 + b^2 = c^2$) $$
+                                    $$ If\left(y=f(x)\right) $$
+                                    $$ L = \int_{a}^{b} \sqrt{1 + \left[ f'(x) \right]^2} \, dx $$
+                                    $$ If\left(x=g(y)\right) $$
+                                    $$ L = \int_{c}^{d} \sqrt{1 + \left[ g'(y) \right]^2} \, dy $$
+                                ">Arc Length</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </li>
 
